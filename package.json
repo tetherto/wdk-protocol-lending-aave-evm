@@ -1,6 +1,6 @@
 {
   "name": "@tetherto/wdk-protocol-lending-aave-evm",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "A simple package that lets @tetherto/wdk-wallet-evm and @tetherto/wdk-wallet-evm-erc-4337 wallet accounts interact with the aave protocol.",
   "keywords": [
     "wdk",
@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@bgd-labs/aave-address-book": "4.33.0",
-    "@tetherto/wdk-wallet": "1.0.0-beta.7",
-    "@tetherto/wdk-wallet-evm": "1.0.0-beta.8",
-    "@tetherto/wdk-wallet-evm-erc-4337": "1.0.0-beta.5",
+    "@tetherto/wdk-wallet": "1.0.0-beta.14",
+    "@tetherto/wdk-wallet-evm": "1.0.0-beta.15",
+    "@tetherto/wdk-wallet-evm-erc-4337": "1.0.0-beta.12",
     "bare-node-runtime": "^1.1.4",
     "ethers": "6.17.0"
   },
