@@ -83,7 +83,8 @@ import { WalletAccountEvmErc4337 } from '@tetherto/wdk-wallet-evm-erc-4337'
 const smart = new WalletAccountEvmErc4337(seed, "0'/0/0", {
   provider: 'https://arb1.arbitrum.io/rpc',
   bundlerUrl: 'YOUR_BUNDLER',
-  paymasterUrl: 'YOUR_PAYMASTER'
+  paymasterUrl: 'YOUR_PAYMASTER',
+  safeModulesVersion: '0.3.0'
 })
 
 const aave4337 = new AaveProtocolEvm(smart)
@@ -91,6 +92,27 @@ const aave4337 = new AaveProtocolEvm(smart)
 // Supply with smart account
 const result = await aave4337.supply({ token: 'TOKEN_ADDRESS', amount: 1000000n }, {
   paymasterToken: 'USDT'
+})
+```
+
+## ⚠️ Breaking changes
+
+### `safeModulesVersion` is now required for ERC‑4337 accounts
+
+Starting with `@tetherto/wdk-wallet-evm-erc-4337@1.0.0-beta.11`, `safeModulesVersion` is a
+**required** field when constructing an ERC‑4337 wallet account. Omitting it (or passing an
+unsupported value) makes the constructor throw a `ConfigurationError`
+(`Unsupported safe modules version: ...`).
+
+`'0.3.0'` is currently the only supported value. It determines the Safe 4337 module addresses
+baked into the account's init code, and therefore its counterfactual address.
+
+```javascript
+const smart = new WalletAccountEvmErc4337(seed, "0'/0/0", {
+  provider: 'https://arb1.arbitrum.io/rpc',
+  bundlerUrl: 'YOUR_BUNDLER',
+  paymasterUrl: 'YOUR_PAYMASTER',
+  safeModulesVersion: '0.3.0' // now required
 })
 ```
 

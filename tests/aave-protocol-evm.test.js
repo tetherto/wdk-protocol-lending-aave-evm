@@ -96,7 +96,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully perform a supply operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -162,7 +163,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully quote a supply operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -223,7 +225,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully perform a withdraw operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -284,7 +287,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully quote a withdraw operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -345,7 +349,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully perform a borrow operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -406,7 +411,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully quote a borrow operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -471,7 +477,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully perform a repay operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -536,7 +543,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully quote a repay operation (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -595,7 +603,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully set as a collateral (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)
@@ -643,7 +652,8 @@ describe('AaveProtocolEvm', () => {
     test('should successfully set efficiency mode (erc-4337)', async () => {
       const account = new WalletAccountEvmErc4337(SEED, "0'/0/0", {
         chainId: 1,
-        provider: 'https://dummy-rpc-url.com'
+        provider: 'https://dummy-rpc-url.com',
+        safeModulesVersion: '0.3.0'
       })
 
       const protocol = new AaveProtocolEvm(account)

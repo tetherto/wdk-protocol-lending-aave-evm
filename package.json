@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@bgd-labs/aave-address-book": "4.33.0",
-    "@tetherto/wdk-wallet": "1.0.0-beta.14",
+    "@tetherto/wdk-wallet": "1.0.0-beta.13",
     "@tetherto/wdk-wallet-evm": "1.0.0-beta.15",
-    "@tetherto/wdk-wallet-evm-erc-4337": "1.0.0-beta.12",
+    "@tetherto/wdk-wallet-evm-erc-4337": "1.0.0-beta.11",
     "bare-node-runtime": "^1.1.4",
     "ethers": "6.17.0"
   },
