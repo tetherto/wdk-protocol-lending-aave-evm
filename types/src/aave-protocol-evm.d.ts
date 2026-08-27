@@ -30,7 +30,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {SupplyOptions} options - The supply's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<SupplyResult>} The supply's result.
      */
     supply(options: SupplyOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<SupplyResult>;
@@ -41,7 +41,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {SupplyOptions} options - The supply's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<Omit<SupplyResult, 'hash'>>} The supply's costs.
      */
     quoteSupply(options: SupplyOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<Omit<SupplyResult, "hash">>;
@@ -52,7 +52,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {WithdrawOptions} options - The withdraw's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<WithdrawResult>} The withdraw's result.
      */
     withdraw(options: WithdrawOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<WithdrawResult>;
@@ -61,7 +61,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {WithdrawOptions} options - The withdraw's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<Omit<WithdrawResult, 'hash'>>} The withdraw's result.
      */
     quoteWithdraw(options: WithdrawOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<Omit<WithdrawResult, "hash">>;
@@ -72,7 +72,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {BorrowOptions} options - The borrow's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<BorrowResult>} The borrow's result.
      */
     borrow(options: BorrowOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<BorrowResult>;
@@ -81,7 +81,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {BorrowOptions} options - The borrow's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<Omit<BorrowResult, 'hash'>>} The borrow's result.
      */
     quoteBorrow(options: BorrowOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<Omit<BorrowResult, "hash">>;
@@ -94,7 +94,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {RepayOptions} options - The borrow's options,
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<RepayResult>} The repay's result.
      */
     repay(options: RepayOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<RepayResult>;
@@ -105,7 +105,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {RepayOptions} options - The repay's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<Omit<RepayResult, 'hash'>>} The repay's costs.
      */
     quoteRepay(options: RepayOptions, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<Omit<RepayResult, "hash">>;
@@ -117,7 +117,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      * @param {string} token - The token's address.
      * @param {boolean} useAsCollateral - True if the token should be a valid collateral.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<TransactionResult>} The transaction's result.
      */
     setUseReserveAsCollateral(token: string, useAsCollateral: boolean, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<TransactionResult>;
@@ -126,7 +126,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
      *
      * @param {number} categoryId - The eMode category id defined by Risk or Pool Admins (0 - 255). 'categoryId' set to 0 is a non eMode category.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-     *   an erc-4337 wallet account, it can be used to override its configuration options.
+     *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
      * @returns {Promise<TransactionResult>} The transaction's result.
      */
     setUserEMode(categoryId: number, config?: Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>): Promise<TransactionResult>;

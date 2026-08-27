@@ -16,7 +16,7 @@
 
 import { LendingProtocol } from '@tetherto/wdk-wallet/protocols'
 import { WalletAccountEvm } from '@tetherto/wdk-wallet-evm'
-import { WalletAccountEvmErc4337, WalletAccountReadOnlyEvmErc4337 } from '@tetherto/wdk-wallet-evm-erc-4337'
+import { WalletAccountEvmErc4337 } from '@tetherto/wdk-wallet-evm-erc-4337'
 
 // eslint-disable-next-line camelcase
 import { IPool_ABI } from '@bgd-labs/aave-address-book/abis'
@@ -38,6 +38,7 @@ import UiPoolDataProviderAbi from './ui-pool-data-provider.js'
 
 /** @typedef {import('@tetherto/wdk-wallet-evm').WalletAccountReadOnlyEvm} WalletAccountReadOnlyEvm */
 
+/** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').WalletAccountReadOnlyEvmErc4337} WalletAccountReadOnlyEvmErc4337 */
 /** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').EvmErc4337WalletPaymasterTokenConfig} EvmErc4337WalletPaymasterTokenConfig */
 /** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').EvmErc4337WalletSponsorshipPolicyConfig} EvmErc4337WalletSponsorshipPolicyConfig */
 /** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').EvmErc4337WalletNativeCoinsConfig} EvmErc4337WalletNativeCoinsConfig */
@@ -98,7 +99,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {SupplyOptions} options - The supply's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<SupplyResult>} The supply's result.
    */
   async supply ({ token, amount, onBehalfOf }, config) {
@@ -124,9 +125,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const supplyTx = await this._getSupplyTransaction({ token, amount, onBehalfOf })
 
-    const transaction = this._account instanceof WalletAccountEvmErc4337
-      ? await this._account.sendTransaction([supplyTx], config)
-      : await this._account.sendTransaction(supplyTx)
+    const transaction = await this._account.sendTransaction(supplyTx, config)
 
     return transaction
   }
@@ -138,7 +137,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {SupplyOptions} options - The supply's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<Omit<SupplyResult, 'hash'>>} The supply's costs.
    */
   async quoteSupply ({ token, amount, onBehalfOf }, config) {
@@ -156,9 +155,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const supplyTx = await this._getSupplyTransaction({ token, amount, onBehalfOf })
 
-    const { fee } = this._account instanceof WalletAccountReadOnlyEvmErc4337
-      ? await this._account.quoteSendTransaction([supplyTx], config)
-      : await this._account.quoteSendTransaction(supplyTx)
+    const { fee } = await this._account.quoteSendTransaction(supplyTx, config)
 
     return { fee }
   }
@@ -186,7 +183,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {WithdrawOptions} options - The withdraw's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<WithdrawResult>} The withdraw's result.
    */
   async withdraw ({ token, amount, to }, config) {
@@ -210,9 +207,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const withdrawTx = await this._getWithdrawTransaction({ token, amount, to })
 
-    const transaction = this._account instanceof WalletAccountEvmErc4337
-      ? await this._account.sendTransaction(withdrawTx, config)
-      : await this._account.sendTransaction(withdrawTx)
+    const transaction = await this._account.sendTransaction(withdrawTx, config)
 
     return transaction
   }
@@ -222,7 +217,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {WithdrawOptions} options - The withdraw's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<Omit<WithdrawResult, 'hash'>>} The withdraw's result.
    */
   async quoteWithdraw ({ token, amount, to }, config) {
@@ -240,9 +235,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const withdrawTx = await this._getWithdrawTransaction({ token, amount, to })
 
-    const transaction = this._account instanceof WalletAccountReadOnlyEvmErc4337
-      ? await this._account.quoteSendTransaction(withdrawTx, config)
-      : await this._account.quoteSendTransaction(withdrawTx)
+    const transaction = await this._account.quoteSendTransaction(withdrawTx, config)
 
     return transaction
   }
@@ -269,7 +262,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {BorrowOptions} options - The borrow's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<BorrowResult>} The borrow's result.
    */
   async borrow ({ token, amount, onBehalfOf }, config) {
@@ -293,9 +286,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const borrowTx = await this._getBorrowTransaction({ token, amount, onBehalfOf })
 
-    const transaction = this._account instanceof WalletAccountEvmErc4337
-      ? await this._account.sendTransaction(borrowTx, config)
-      : await this._account.sendTransaction(borrowTx)
+    const transaction = await this._account.sendTransaction(borrowTx, config)
 
     return transaction
   }
@@ -305,7 +296,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {BorrowOptions} options - The borrow's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<Omit<BorrowResult, 'hash'>>} The borrow's result.
    */
   async quoteBorrow ({ token, amount, onBehalfOf }, config) {
@@ -323,9 +314,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const borrowTx = await this._getBorrowTransaction({ token, amount, onBehalfOf })
 
-    const transaction = this._account instanceof WalletAccountReadOnlyEvmErc4337
-      ? await this._account.quoteSendTransaction(borrowTx, config)
-      : await this._account.quoteSendTransaction(borrowTx)
+    const transaction = await this._account.quoteSendTransaction(borrowTx, config)
 
     return transaction
   }
@@ -356,7 +345,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {RepayOptions} options - The borrow's options,
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<RepayResult>} The repay's result.
    */
   async repay ({ token, amount, onBehalfOf }, config) {
@@ -382,9 +371,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const repayTx = await this._getRepayTransaction({ token, amount, onBehalfOf })
 
-    const transaction = this._account instanceof WalletAccountEvmErc4337
-      ? await this._account.sendTransaction([repayTx], config)
-      : await this._account.sendTransaction(repayTx)
+    const transaction = await this._account.sendTransaction(repayTx, config)
 
     return transaction
   }
@@ -396,7 +383,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {RepayOptions} options - The repay's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<Omit<RepayResult, 'hash'>>} The repay's costs.
    */
   async quoteRepay ({ token, amount, onBehalfOf }, config) {
@@ -414,9 +401,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
 
     const repayTx = await this._getRepayTransaction({ token, amount, onBehalfOf })
 
-    const { fee } = this._account instanceof WalletAccountReadOnlyEvmErc4337
-      ? await this._account.quoteSendTransaction([repayTx], config)
-      : await this._account.quoteSendTransaction(repayTx)
+    const { fee } = await this._account.quoteSendTransaction(repayTx, config)
 
     return { fee }
   }
@@ -445,7 +430,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @param {string} token - The token's address.
    * @param {boolean} useAsCollateral - True if the token should be a valid collateral.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<TransactionResult>} The transaction's result.
    */
   async setUseReserveAsCollateral (token, useAsCollateral, config) {
@@ -465,9 +450,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
       data: poolContract.interface.encodeFunctionData('setUserUseReserveAsCollateral', [token, useAsCollateral])
     }
 
-    const transaction = this._account instanceof WalletAccountEvmErc4337
-      ? await this._account.sendTransaction(tx, config)
-      : await this._account.sendTransaction(tx)
+    const transaction = await this._account.sendTransaction(tx, config)
 
     return transaction
   }
@@ -477,7 +460,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    *
    * @param {number} categoryId - The eMode category id defined by Risk or Pool Admins (0 - 255). 'categoryId' set to 0 is a non eMode category.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
-   *   an erc-4337 wallet account, it can be used to override its configuration options.
+   *   an erc-4337 wallet account, it can be used to override its configuration options. Standard (non erc-4337) accounts silently ignore this config.
    * @returns {Promise<TransactionResult>} The transaction's result.
    */
   async setUserEMode (categoryId, config) {
@@ -497,9 +480,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
       data: poolContract.interface.encodeFunctionData('setUserEMode', [categoryId])
     }
 
-    const transaction = this._account instanceof WalletAccountEvmErc4337
-      ? await this._account.sendTransaction(tx, config)
-      : await this._account.sendTransaction(tx)
+    const transaction = await this._account.sendTransaction(tx, config)
 
     return transaction
   }

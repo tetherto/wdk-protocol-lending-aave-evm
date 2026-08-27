@@ -85,7 +85,7 @@ describe('AaveProtocolEvm', () => {
 
       expect(getReservesDataMock).toHaveBeenCalledWith(AAVE_V3_ADDRESS_MAP[1].poolAddressesProvider)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith(SUPPLY_TRANSACTION)
+      expect(account.sendTransaction).toHaveBeenCalledWith(SUPPLY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         hash: 'dummy-supply-hash',
@@ -115,7 +115,7 @@ describe('AaveProtocolEvm', () => {
 
       expect(getReservesDataMock).toHaveBeenCalledWith(AAVE_V3_ADDRESS_MAP[1].poolAddressesProvider)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith([SUPPLY_TRANSACTION], undefined)
+      expect(account.sendTransaction).toHaveBeenCalledWith(SUPPLY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         hash: 'dummy-user-operation-hash',
@@ -153,7 +153,7 @@ describe('AaveProtocolEvm', () => {
 
       const result = await protocol.quoteSupply({ token: TOKEN, amount: 100_000 })
 
-      expect(account.quoteSendTransaction).toHaveBeenCalledWith(SUPPLY_TRANSACTION)
+      expect(account.quoteSendTransaction).toHaveBeenCalledWith(SUPPLY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         fee: 12_345n
@@ -176,7 +176,7 @@ describe('AaveProtocolEvm', () => {
 
       const result = await protocol.quoteSupply({ token: TOKEN, amount: 100_000 })
 
-      expect(account.quoteSendTransaction).toHaveBeenCalledWith([SUPPLY_TRANSACTION], undefined)
+      expect(account.quoteSendTransaction).toHaveBeenCalledWith(SUPPLY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         fee: 12_345n
@@ -214,7 +214,7 @@ describe('AaveProtocolEvm', () => {
 
       expect(getReservesDataMock).toHaveBeenCalledWith(AAVE_V3_ADDRESS_MAP[1].poolAddressesProvider)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith(WITHDRAW_TRANSACTION)
+      expect(account.sendTransaction).toHaveBeenCalledWith(WITHDRAW_TRANSACTION, undefined)
 
       expect(result).toEqual({
         hash: 'dummy-withdraw-hash',
@@ -277,7 +277,7 @@ describe('AaveProtocolEvm', () => {
 
       const result = await protocol.quoteWithdraw({ token: TOKEN, amount: 100_000 })
 
-      expect(account.quoteSendTransaction).toHaveBeenCalledWith(WITHDRAW_TRANSACTION)
+      expect(account.quoteSendTransaction).toHaveBeenCalledWith(WITHDRAW_TRANSACTION, undefined)
 
       expect(result).toEqual({
         fee: 12_345n
@@ -338,7 +338,7 @@ describe('AaveProtocolEvm', () => {
 
       expect(getReservesDataMock).toHaveBeenCalledWith(AAVE_V3_ADDRESS_MAP[1].poolAddressesProvider)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith(BORROW_TRANSACTION)
+      expect(account.sendTransaction).toHaveBeenCalledWith(BORROW_TRANSACTION, undefined)
 
       expect(result).toEqual({
         hash: 'dummy-borrow-hash',
@@ -401,7 +401,7 @@ describe('AaveProtocolEvm', () => {
 
       const result = await protocol.quoteBorrow({ token: TOKEN, amount: 100_000 })
 
-      expect(account.quoteSendTransaction).toHaveBeenCalledWith(BORROW_TRANSACTION)
+      expect(account.quoteSendTransaction).toHaveBeenCalledWith(BORROW_TRANSACTION, undefined)
 
       expect(result).toEqual({
         fee: 12_345n
@@ -466,7 +466,7 @@ describe('AaveProtocolEvm', () => {
 
       expect(getReservesDataMock).toHaveBeenCalledWith(AAVE_V3_ADDRESS_MAP[1].poolAddressesProvider)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith(REPAY_TRANSACTION)
+      expect(account.sendTransaction).toHaveBeenCalledWith(REPAY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         hash: 'dummy-repay-hash',
@@ -496,7 +496,7 @@ describe('AaveProtocolEvm', () => {
 
       expect(getReservesDataMock).toHaveBeenCalledWith(AAVE_V3_ADDRESS_MAP[1].poolAddressesProvider)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith([REPAY_TRANSACTION], undefined)
+      expect(account.sendTransaction).toHaveBeenCalledWith(REPAY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         hash: 'dummy-user-operation-hash',
@@ -533,7 +533,7 @@ describe('AaveProtocolEvm', () => {
 
       const result = await protocol.quoteRepay({ token: TOKEN, amount: 100_000 })
 
-      expect(account.quoteSendTransaction).toHaveBeenCalledWith(REPAY_TRANSACTION)
+      expect(account.quoteSendTransaction).toHaveBeenCalledWith(REPAY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         fee: 12_345n
@@ -556,7 +556,7 @@ describe('AaveProtocolEvm', () => {
 
       const result = await protocol.quoteRepay({ token: TOKEN, amount: 100_000 })
 
-      expect(account.quoteSendTransaction).toHaveBeenCalledWith([REPAY_TRANSACTION], undefined)
+      expect(account.quoteSendTransaction).toHaveBeenCalledWith(REPAY_TRANSACTION, undefined)
 
       expect(result).toEqual({
         fee: 12_345n
@@ -592,7 +592,7 @@ describe('AaveProtocolEvm', () => {
 
       const transaction = await protocol.setUseReserveAsCollateral(TOKEN, true)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith(SET_USE_RESERVE_AS_COLLATERAL_TRANSACTION)
+      expect(account.sendTransaction).toHaveBeenCalledWith(SET_USE_RESERVE_AS_COLLATERAL_TRANSACTION, undefined)
 
       expect(transaction).toEqual({
         hash: 'dummy-set-use-reserve-as-collateral-hash',
@@ -641,7 +641,7 @@ describe('AaveProtocolEvm', () => {
 
       const transaction = await protocol.setUserEMode(128)
 
-      expect(account.sendTransaction).toHaveBeenCalledWith(SET_USER_E_MODE_TRANSACTION)
+      expect(account.sendTransaction).toHaveBeenCalledWith(SET_USER_E_MODE_TRANSACTION, undefined)
 
       expect(transaction).toEqual({
         hash: 'dummy-set-user-e-mode-hash',
