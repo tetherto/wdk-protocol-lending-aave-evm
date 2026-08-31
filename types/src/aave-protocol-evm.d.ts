@@ -3,16 +3,16 @@ export default class AaveProtocolEvm extends LendingProtocol {
      * Creates a new read-only interface to the aave protocol for evm blockchains.
      *
      * @overload
-     * @param {WalletAccountReadOnlyEvm | WalletAccountReadOnlyEvmErc4337} account - The wallet account to use to interact with the protocol.
+     * @param {IWalletAccountReadOnly} account - The wallet account to use to interact with the protocol.
      */
-    constructor(account: WalletAccountReadOnlyEvm | WalletAccountReadOnlyEvmErc4337);
+    constructor(account: IWalletAccountReadOnly);
     /**
      * Creates a new interface to the aave protocol for evm blockchains.
      *
      * @overload
-     * @param {WalletAccountEvm | WalletAccountEvmErc4337} account - The wallet account to use to interact with the protocol.
+     * @param {IWalletAccount} account - The wallet account to use to interact with the protocol.
      */
-    constructor(account: WalletAccountEvm | WalletAccountEvmErc4337);
+    constructor(account: IWalletAccount);
     /** @private */
     private _chainId;
     /** @private */
@@ -26,7 +26,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
     /**
      * Supplies a specific token amount to the lending pool.
      * 
-     * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+     * Users must first approve the necessary amount of tokens using the account's `approve` method.
      *
      * @param {SupplyOptions} options - The supply's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -37,7 +37,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
     /**
      * Quotes the costs of a supply operation.
      * 
-     * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+     * Users must first approve the necessary amount of tokens using the account's `approve` method.
      *
      * @param {SupplyOptions} options - The supply's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -90,7 +90,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
     /**
      * Repays a specific token amount.
      * 
-     * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+     * Users must first approve the necessary amount of tokens using the account's `approve` method.
      *
      * @param {RepayOptions} options - The borrow's options,
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -101,7 +101,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
     /**
      * Quotes the costs of a repay operation.
      * 
-     * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+     * Users must first approve the necessary amount of tokens using the account's `approve` method.
      *
      * @param {RepayOptions} options - The repay's options.
      * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -163,7 +163,8 @@ export type WithdrawOptions = import("@tetherto/wdk-wallet/protocols").WithdrawO
 export type WithdrawResult = import("@tetherto/wdk-wallet/protocols").WithdrawResult;
 export type RepayOptions = import("@tetherto/wdk-wallet/protocols").RepayOptions;
 export type RepayResult = import("@tetherto/wdk-wallet/protocols").RepayResult;
-export type WalletAccountReadOnlyEvm = import("@tetherto/wdk-wallet-evm").WalletAccountReadOnlyEvm;
+export type IWalletAccount = import("@tetherto/wdk-wallet").IWalletAccount;
+export type IWalletAccountReadOnly = import("@tetherto/wdk-wallet").IWalletAccountReadOnly;
 export type EvmErc4337WalletPaymasterTokenConfig = import("@tetherto/wdk-wallet-evm-erc-4337").EvmErc4337WalletPaymasterTokenConfig;
 export type EvmErc4337WalletSponsorshipPolicyConfig = import("@tetherto/wdk-wallet-evm-erc-4337").EvmErc4337WalletSponsorshipPolicyConfig;
 export type EvmErc4337WalletNativeCoinsConfig = import("@tetherto/wdk-wallet-evm-erc-4337").EvmErc4337WalletNativeCoinsConfig;
@@ -194,5 +195,3 @@ export type AccountData = {
     healthFactor: bigint;
 };
 import { LendingProtocol } from '@tetherto/wdk-wallet/protocols';
-import { WalletAccountEvm } from '@tetherto/wdk-wallet-evm';
-import { WalletAccountEvmErc4337, WalletAccountReadOnlyEvmErc4337 } from '@tetherto/wdk-wallet-evm-erc-4337';
