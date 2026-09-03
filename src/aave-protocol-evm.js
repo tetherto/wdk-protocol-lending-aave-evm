@@ -15,8 +15,6 @@
 'use strict'
 
 import { LendingProtocol } from '@tetherto/wdk-wallet/protocols'
-import { WalletAccountEvm } from '@tetherto/wdk-wallet-evm'
-import { WalletAccountEvmErc4337 } from '@tetherto/wdk-wallet-evm-erc-4337'
 
 // eslint-disable-next-line camelcase
 import { IPool_ABI } from '@bgd-labs/aave-address-book/abis'
@@ -36,9 +34,8 @@ import UiPoolDataProviderAbi from './ui-pool-data-provider.js'
 /** @typedef {import('@tetherto/wdk-wallet/protocols').RepayOptions} RepayOptions */
 /** @typedef {import('@tetherto/wdk-wallet/protocols').RepayResult} RepayResult */
 
-/** @typedef {import('@tetherto/wdk-wallet-evm').WalletAccountReadOnlyEvm} WalletAccountReadOnlyEvm */
-
-/** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').WalletAccountReadOnlyEvmErc4337} WalletAccountReadOnlyEvmErc4337 */
+/** @typedef {import('@tetherto/wdk-wallet').IWalletAccount} IWalletAccount */
+/** @typedef {import('@tetherto/wdk-wallet').IWalletAccountReadOnly} IWalletAccountReadOnly */
 /** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').EvmErc4337WalletPaymasterTokenConfig} EvmErc4337WalletPaymasterTokenConfig */
 /** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').EvmErc4337WalletSponsorshipPolicyConfig} EvmErc4337WalletSponsorshipPolicyConfig */
 /** @typedef {import('@tetherto/wdk-wallet-evm-erc-4337').EvmErc4337WalletNativeCoinsConfig} EvmErc4337WalletNativeCoinsConfig */
@@ -58,14 +55,14 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * Creates a new read-only interface to the aave protocol for evm blockchains.
    *
    * @overload
-   * @param {WalletAccountReadOnlyEvm | WalletAccountReadOnlyEvmErc4337} account - The wallet account to use to interact with the protocol.
+   * @param {IWalletAccountReadOnly} account - The wallet account to use to interact with the protocol.
    */
 
   /**
    * Creates a new interface to the aave protocol for evm blockchains.
    *
    * @overload
-   * @param {WalletAccountEvm | WalletAccountEvmErc4337} account - The wallet account to use to interact with the protocol.
+   * @param {IWalletAccount} account - The wallet account to use to interact with the protocol.
    */
   constructor (account) {
     super(account)
@@ -95,7 +92,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
   /**
    * Supplies a specific token amount to the lending pool.
    *
-   * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+   * Users must first approve the necessary amount of tokens using the account's `approve` method.
    *
    * @param {SupplyOptions} options - The supply's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -103,7 +100,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @returns {Promise<SupplyResult>} The supply's result.
    */
   async supply ({ token, amount, onBehalfOf }, config) {
-    if (!(this._account instanceof WalletAccountEvm || this._account instanceof WalletAccountEvmErc4337)) {
+    if (typeof this._account.sendTransaction !== 'function') {
       throw new Error("The 'supply(options)' method requires the protocol to be initialized with a non read-only account.")
     }
 
@@ -133,7 +130,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
   /**
    * Quotes the costs of a supply operation.
    *
-   * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+   * Users must first approve the necessary amount of tokens using the account's `approve` method.
    *
    * @param {SupplyOptions} options - The supply's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -187,7 +184,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @returns {Promise<WithdrawResult>} The withdraw's result.
    */
   async withdraw ({ token, amount, to }, config) {
-    if (!(this._account instanceof WalletAccountEvm || this._account instanceof WalletAccountEvmErc4337)) {
+    if (typeof this._account.sendTransaction !== 'function') {
       throw new Error("The 'withdraw(options)' method requires the protocol to be initialized with a non read-only account.")
     }
 
@@ -266,7 +263,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @returns {Promise<BorrowResult>} The borrow's result.
    */
   async borrow ({ token, amount, onBehalfOf }, config) {
-    if (!(this._account instanceof WalletAccountEvm || this._account instanceof WalletAccountEvmErc4337)) {
+    if (typeof this._account.sendTransaction !== 'function') {
       throw new Error("The 'borrow(options)' method requires the protocol to be initialized with a non read-only account.")
     }
 
@@ -341,7 +338,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
   /**
    * Repays a specific token amount.
    *
-   * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+   * Users must first approve the necessary amount of tokens using the account's `approve` method.
    *
    * @param {RepayOptions} options - The borrow's options,
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -349,7 +346,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @returns {Promise<RepayResult>} The repay's result.
    */
   async repay ({ token, amount, onBehalfOf }, config) {
-    if (!(this._account instanceof WalletAccountEvm || this._account instanceof WalletAccountEvmErc4337)) {
+    if (typeof this._account.sendTransaction !== 'function') {
       throw new Error("The 'repay(options)' method requires the protocol to be initialized with a non read-only account.")
     }
 
@@ -379,7 +376,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
   /**
    * Quotes the costs of a repay operation.
    *
-   * Users must first approve the necessary amount of tokens to the aave protocol using the {@link WalletAccountEvm#approve} or the {@link WalletAccountEvmErc4337#approve} method.
+   * Users must first approve the necessary amount of tokens using the account's `approve` method.
    *
    * @param {RepayOptions} options - The repay's options.
    * @param {Partial<EvmErc4337WalletPaymasterTokenConfig | EvmErc4337WalletSponsorshipPolicyConfig | EvmErc4337WalletNativeCoinsConfig>} [config] - If the protocol has been initialized with
@@ -434,7 +431,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @returns {Promise<TransactionResult>} The transaction's result.
    */
   async setUseReserveAsCollateral (token, useAsCollateral, config) {
-    if (!(this._account instanceof WalletAccountEvm || this._account instanceof WalletAccountEvmErc4337)) {
+    if (typeof this._account.sendTransaction !== 'function') {
       throw new Error("The 'setUseReserveAsCollateral(token, useAsCollateral)' method requires the protocol to be initialized with a non read-only account.")
     }
 
@@ -464,7 +461,7 @@ export default class AaveProtocolEvm extends LendingProtocol {
    * @returns {Promise<TransactionResult>} The transaction's result.
    */
   async setUserEMode (categoryId, config) {
-    if (!(this._account instanceof WalletAccountEvm || this._account instanceof WalletAccountEvmErc4337)) {
+    if (typeof this._account.sendTransaction !== 'function') {
       throw new Error("The 'setUserEMode(categoryId)' method requires the protocol to be initialized with a non read-only account.")
     }
 
