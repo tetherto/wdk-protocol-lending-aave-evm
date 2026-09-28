@@ -2,11 +2,13 @@
 
 Note: This package is in beta. Please test in a dev setup first.
 
-A simple way to use Aave V3 lending with EVM wallet accounts. You can add and take out tokens, borrow, pay back, and read your account data. It works with normal EVM accounts and ERC-4337 smart accounts.
+An Aave V3 lending module for WDK (Wallet Development Kit) by Tether, for EVM wallet accounts. You can add and take out tokens, borrow, pay back, and read your account data. It works with normal EVM accounts and ERC-4337 smart accounts.
+
+See the [module documentation](https://docs.wdk.tether.io/sdk/lending-modules/lending-aave-evm/).
 
 ## 🔍 About WDK
 
-This is part of WDK (Wallet Development Kit). WDK helps you build safe, non‑custody wallets. Read more at https://docs.wallet.tether.io.
+This is part of WDK (Wallet Development Kit). WDK helps you build safe, non‑custody wallets. Read more at https://docs.wdk.tether.io/.
 
 ## 🌟 Features
 

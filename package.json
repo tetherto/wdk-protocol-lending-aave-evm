@@ -1,7 +1,8 @@
 {
   "name": "@tetherto/wdk-protocol-lending-aave-evm",
   "version": "1.0.0-beta.7",
-  "description": "A simple package that lets @tetherto/wdk-wallet-evm and @tetherto/wdk-wallet-evm-erc-4337 wallet accounts interact with the aave protocol.",
+  "description": "Aave V3 lending module for WDK (Wallet Development Kit) by Tether, for EVM wallet accounts.",
+  "homepage": "https://docs.wdk.tether.io/sdk/lending-modules/lending-aave-evm/",
   "keywords": [
     "wdk",
     "protocol",
